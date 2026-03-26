@@ -1,0 +1,7 @@
+{
+  "name": "Signal & Angle",
+  "description": "A strategic content command center for sharpening thinking, diagnosing messaging gaps, and multiplying high-value ideas.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
