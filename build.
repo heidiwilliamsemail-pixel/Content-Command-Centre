@@ -1,0 +1,55 @@
+# Build Specification: Signal & Angle
+
+## 1. Project Overview
+**Signal & Angle** is a strategic content command center designed for high-level thinkers and content creators. It is NOT a generic productivity tool; it is a system for sharpening thinking, diagnosing messaging gaps, and multiplying high-value ideas into content assets.
+
+## 2. Core Philosophy
+- **Sharpening Thinking**: Moving from raw "signals" to distilled "ideas."
+- **Diagnosing Gaps**: Identifying what buyers actually need vs. what they say they want.
+- **Multiplying Assets**: Turning ONE core insight into MULTIPLE content formats (Authority, Story, Contrarian, etc.).
+- **Buyer Psychology**: Every feature ties back to positioning and problem-solving.
+
+## 3. Technical Stack
+- **Frontend**: React 19 + TypeScript
+- **Styling**: Tailwind CSS (Brutalist aesthetic: high contrast, #E4E3E0 background, black borders, #00FF00 accents).
+- **Animations**: `motion` (framer-motion) for tab transitions and recording states.
+- **Icons**: `lucide-react`.
+- **AI**: `@google/genai` (Gemini 3 Flash) for distillation and content generation.
+- **Utilities**: `clsx`, `tailwind-merge` for class management.
+
+## 4. Data Models (`src/types.ts`)
+- **Signal**: Raw input (text/voice). Tags for Problem, Buyer, Context.
+- **Idea**: Distilled version of a Signal. Contains: Core Idea, Belief Challenged, Underlying Problem, Target Buyer, "What it's really about," "Why it matters," "Wrong approach."
+- **Angle**: Strategic mapping of Problem + Buyer Type + Moment of Friction + Content Angle.
+- **ContentAsset**: Generated posts (Authority, Story, Breakdown, etc.) linked to an Idea.
+- **ProofItem**: "Receipts" (Results, Stories, Screenshots) to support claims.
+- **Framework**: Writing structures (e.g., Diagnosis → Reframe → Shift).
+
+## 5. AI Services (`src/services/geminiService.ts`)
+- **`distillSignal`**: Takes raw text and returns a structured JSON object matching the `Idea` schema.
+- **`multiplyContent`**: Takes a distilled `Idea` and generates 6 distinct content assets in a single call using a structured JSON schema.
+
+## 6. Screen Structure
+1. **Home (Dashboard)**: Daily Focus, Momentum tracking, Active Angles, and Quick Capture (Text/Voice).
+2. **Content Engine**:
+   - **Signal Bank**: List of raw inputs with filtering.
+   - **Idea Lab**: Side-by-side view of Raw Signal vs. Structured Idea Breakdown.
+   - **Angle Mapper**: Grid/Table for strategic alignment.
+   - **Multiplication Engine**: Grid of generated content cards with Copy/Regenerate actions.
+   - **Content Library**: Searchable archive of finished assets.
+3. **Proof Bank**: Card grid of authority-building "receipts."
+4. **Framework Library**: Repository of IP writing structures.
+5. **Settings**: AI Tone configuration and integration placeholders.
+
+## 7. Design Guidelines
+- **Aesthetic**: "Technical Dashboard" / "Brutalist."
+- **Colors**: Background `#E4E3E0`, Accent `#00FF00` (Neon Green), Primary `Black`.
+- **Shadows**: Hard 4px/2px black offsets (`shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]`).
+- **Typography**: Monospace for data/labels, clean Sans for body.
+- **Interaction**: High-feedback buttons (translate on click), pulse animations for recording.
+
+## 8. Critical Implementation Notes
+- **Microphone**: Requires `microphone` permission in `metadata.json`.
+- **Environment**: `GEMINI_API_KEY` must be available in `process.env`.
+- **State**: Centralized state in `App.tsx` managing lists of Signals, Ideas, and Assets.
+- **AI Tone**: The `geminiService` should ideally respect the "AI Tone" setting from the user's configuration.
